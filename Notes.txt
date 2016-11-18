@@ -1,0 +1,34 @@
+ReactivX --> it is all about asynchronous programmning, that is you write some code that will wait for something to happen and then react.
+In JS we are always wainting to something to happen: wainting for user to click on a button or submit a form, or sending a request back to the 
+web server and wainting for a response to deliver updated data           
+RxJs is designed to work in this types of scenarios where activites happens somwhere in the future and we need code that will response to this future event.
+RxJs is all about asynchronous programmning with observable streams( like an array that is populated over time, that is growing infinitly over time) 
+	--> with RxJs we can know when that new data arrives and we can use operators to process that data as arrives     
+   
+One possible setup to use RxJs:
+
+- webpack --> will build and bundel our application code togheter with rxjs into a single file that we can send to the browser
+- webpack-dev-server --> it is a development web server that will use to send files to the browser over HTTP
+- typescript compiler --> it is not required for using rxjs, you can install the Babel compiler instead and write plain JS
+- typings 
+- ts-loader --> plugin that helps typescript work with webpack; knows how to use the ts compiler to procees a ts file.      
+
+RxJs is build with ES6 in mind, then RxJs use API's and features that are native to ES6 (ex: map, set, new methods on arrays and string).
+The Typescript compiler dosen't know about this API's by default but will cand if:
+	node_modules\.bin\typings install dt(definitely-type)~es6-shim --global(because this particular types definitions represent global symbols in the JS runtime) --save(will allow typings to create a typings.json file)
+typings.json -- will keep track of what typings will have install
+
+tsconfig.json --> Typescript compiler options
+	module: commonjs --> module format that webpack understands
+	sourceMap: true --> for making application more easier to debug
+
+webpack.config.js -->  it is code that webpack will execute in the Nodejs evironment, it needs to export a configuration object
+		  --> entry: wich file bootstrap the app and kiks everything of; webpack will analysie this file and all the dependecies that this file brings in and use this info to produce the bundled for my app. 
+		  --> output: this tells webpack to create an output file that we cand load in a script tag in index.html
+		  --> mention that we can have more than one entry and output point 
+		  --> loaders are tools that can look at different files type and procees that files and give webpack the output to bundle into single app.js     					   	
+
+package.json
+	"scripts": { "start": "webpack-dev-server --watch --inline" --> will start webpack server and allow to edit a file, save it, and the browser should refresh with the new changes
+		     "postinstall": "typings install" --> will autmatically run after npm is finish with a npm install, e.g. make sure that anybody who brings the project from a source control and typed npm install will also have the typings file install automatically
+        	   
